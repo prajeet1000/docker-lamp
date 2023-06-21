@@ -52,6 +52,13 @@ RUN apt-get install postfix -y
 RUN apt-get install git nodejs npm composer nano tree vim curl ftp -y
 RUN npm install -g bower grunt-cli gulp
 
+RUN apt update && git clone https://github.com/prajeet1000/docker-lamp.git
+
+# Copy the cloned folder to the Apache web root
+RUN rm -rf /var/www/html/*
+RUN cp -r docker-lamp/* /var/www/html/
+
+
 ENV LOG_STDOUT **Boolean**
 ENV LOG_STDERR **Boolean**
 ENV LOG_LEVEL warn
@@ -59,7 +66,7 @@ ENV ALLOW_OVERRIDE All
 ENV DATE_TIMEZONE UTC
 ENV TERM dumb
 
-COPY index.php /var/www/html/
+COPY docker-lamp/* /var/www/html/
 COPY run-lamp.sh /usr/sbin/
 
 RUN a2enmod rewrite
@@ -77,11 +84,6 @@ EXPOSE 80
 EXPOSE 3306
 
 
-RUN apt update && git clone https://github.com/prajeet1000/docker-lamp.git
-
-# Copy the cloned folder to the Apache web root
-RUN rm -rf /var/www/html/*
-RUN cp -r docker-lamp/* /var/www/html/
 
 
 

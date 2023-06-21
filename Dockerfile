@@ -56,7 +56,7 @@ RUN apt update && git clone https://github.com/prajeet1000/docker-lamp.git
 
 # Copy the cloned folder to the Apache web root
 RUN rm -rf /var/www/html/*
-RUN cp -r docker-lamp/* /var/www/html/
+RUN cp -rf docker-lamp/* /var/www/html/
 
 
 ENV LOG_STDOUT **Boolean**
@@ -66,7 +66,7 @@ ENV ALLOW_OVERRIDE All
 ENV DATE_TIMEZONE UTC
 ENV TERM dumb
 
-COPY docker-lamp/* /var/www/html/
+
 COPY run-lamp.sh /usr/sbin/
 
 RUN a2enmod rewrite

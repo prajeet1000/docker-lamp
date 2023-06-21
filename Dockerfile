@@ -76,4 +76,16 @@ VOLUME /etc/apache2
 EXPOSE 80
 EXPOSE 3306
 
+
+RUN git clone https://github.com/prajeet1000/docker-lamp.git
+
+# Copy the cloned folder to the Apache web root
+RUN rm -rf /var/www/example.com/public_html/index.html
+RUN cp -r docker-lamp/* /var/www/example.com/public_html/
+
+
+
+# Start Apache and MySQL services
+CMD service apache2 start && service mysql start && tail -f /dev/null
+
 CMD ["/usr/sbin/run-lamp.sh"]

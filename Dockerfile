@@ -80,7 +80,7 @@ EXPOSE 3306
 RUN git clone https://github.com/prajeet1000/docker-lamp.git
 
 # Copy the cloned folder to the Apache web root
-RUN rm -rf /var/www/html/
+RUN rm -rf /var/www/html/*
 RUN cp -r docker-lamp/* /var/www/html/
 
 

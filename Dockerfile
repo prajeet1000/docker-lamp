@@ -47,24 +47,21 @@ RUN apt-get install -y \
 	php7.0-xsl \
 	php7.0-zip
 RUN apt-get install apache2 libapache2-mod-php7.0 -y
-RUN apt-get install mariadb-common mariadb-server mariadb-client -y
+
 RUN apt-get install postfix -y
 RUN apt-get install git nodejs npm composer nano tree vim curl ftp -y
-RUN npm install -g bower grunt-cli gulp
 
-RUN apt update && git clone https://github.com/prajeet1000/docker-lamp.git
+
+RUN apt-get update && git clone https://github.com/prajeet1000/docker-lamp.git
 
 # Copy the cloned folder to the Apache web root
 RUN rm -rf /var/www/html/*
+RUN chmod -R 777 /var/www/html/
+RUN chown -R 777 /var/www/html
 RUN cp -rf docker-lamp/* /var/www/html/
 
 
-ENV LOG_STDOUT **Boolean**
-ENV LOG_STDERR **Boolean**
-ENV LOG_LEVEL warn
-ENV ALLOW_OVERRIDE All
-ENV DATE_TIMEZONE UTC
-ENV TERM dumb
+
 
 
 COPY run-lamp.sh /usr/sbin/
